@@ -5,9 +5,8 @@ Lagometer for famo.us showing the FPS, animation-frames times and script times.
 
 ![lagometer](lagometer.png)
 
-## Demo
+### [View the demo here](https://rawgit.com/IjzerenHein/famous-lagometer/master/examples/demo/index.html)
 
-[View the demo here](https://rawgit.com/IjzerenHein/famous-lagometer/master/examples/demo/index.html)
 
 
 ## Getting started

@@ -83,7 +83,7 @@ define(function (require, exports, module) {
      */
     AppView.prototype._createLagometer = function () {
         var modifier = new Modifier({
-            size: [100, 100],
+            size: [200, 200],
             align: [1.0, 0.0],
             origin: [1.0, 0.0],
             transform: Transform.translate(-10, 10, 0)
