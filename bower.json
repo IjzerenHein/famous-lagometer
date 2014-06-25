@@ -1,0 +1,30 @@
+{
+  "name": "famous-lagometer",
+  "version": "0.0.1",
+  "homepage": "https://github.com/IjzerenHein/famous-lagometer",
+  "authors": [
+    "Hein Rutjes <hrutjes@gmail.com>"
+  ],
+  "description": "Lagometer for famo.us showing the FPS, animation-frames times and script times",
+  "keywords": [
+    "famo.us",
+    "famous",
+    "lagometer",
+    "animationframe",
+    "fps"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "tests",
+    "examples",
+    "docs",
+    "Gruntfile.js"
+  ],
+  "dependencies": {
+    "requirejs": "~2.1.11",
+    "famous": "~0.2.0"
+  }
+}
