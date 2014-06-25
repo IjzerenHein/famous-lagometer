@@ -47,6 +47,8 @@ this.add(modifier).add(lagometer);
 
 ## Constructor options
 
+Options that you can configure through the constructor:
+
 ```javascript
 {
     size: [100, 100],
