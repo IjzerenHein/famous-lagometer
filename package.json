@@ -29,6 +29,6 @@
   "devDependencies": {
     "grunt": "latest",
     "grunt-eslint": "latest",
-    "grunt-jscs-checker": "latest"
+    "grunt-jscs": "latest"
   }
 }

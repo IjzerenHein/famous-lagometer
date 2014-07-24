@@ -20,7 +20,7 @@ module.exports = function(grunt) {
 
   // These plugins provide necessary tasks.
   grunt.loadNpmTasks('grunt-eslint');
-  grunt.loadNpmTasks('grunt-jscs-checker');
+  grunt.loadNpmTasks('grunt-jscs');
 
   // Default task.
   grunt.registerTask('default', ['eslint', 'jscs']);
