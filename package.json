@@ -1,6 +1,7 @@
 {
   "name": "famous-lagometer",
   "version": "0.0.1",
+  "main": "./Lagometer.js",
   "homepage": "https://github.com/IjzerenHein/famous-lagometer",
   "author": {
     "name": "Hein Rutjes <hrutjes@gmail.com>"
