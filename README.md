@@ -8,20 +8,21 @@ Lagometer for famo.us showing the FPS, animation-frames times and script times.
 ### [View the demo here](https://rawgit.com/IjzerenHein/famous-lagometer/master/examples/demo/index.html)
 
 
-
 ## Getting started
 
-Install using bower:
-	
-	bower install IjzerenHein/famous-lagometer
-	
-Add famous-lagometer to the requirejs paths config if neccessary:
+Install using bower or npm:
+
+    bower install famous-lagometer
+
+    npm install famous-lagomter
+
+If necessary, add to the requirejs paths config:
 
 ```javascript
 require.config({
     paths: {
         ...
-        'famous-lagometer': 'bower_components/famous-lagometer/Lagometer',
+        'famous-lagometer': 'node_modules/famous-lagometer/Lagometer',
         ...
     }
 });
