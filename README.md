@@ -14,7 +14,7 @@ Install using bower or npm:
 
     bower install famous-lagometer
 
-    npm install famous-lagomter
+    npm install famous-lagometer
 
 If necessary, add to the requirejs paths config:
 
