@@ -38,7 +38,7 @@ define(function(require, exports, module) {
         Engine.on('postrender', this._onEngineRender.bind(this, false));
 
         // Create drawing canvas
-        this.canvas = new CanvasSurface();
+        this.canvas = new CanvasSurface(this.options.canvasSurface);
         this.add(this.canvas);
     }
     Lagometer.prototype = Object.create(View.prototype);
@@ -53,7 +53,12 @@ define(function(require, exports, module) {
         textColor: 'rgba(255, 255, 255, 0.8)',
         font: '28px Arial',
         frameColor: '#00FF00',
-        scriptColor: '#BBBBFF'
+        scriptColor: '#BBBBFF',
+        canvasSurface: {
+            properties: {
+                'pointer-events': 'none'
+            }
+        }
     };
 
     /**
