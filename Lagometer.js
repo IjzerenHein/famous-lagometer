@@ -173,7 +173,17 @@ define(function(require, exports, module) {
         var context = this.canvas.getContext('2d');
         var size = this.getSize();
         var canvasSize = [size[0] * 2, size[1] * 2];
-        this.canvas.setSize(size, canvasSize);
+
+        // Update canvas size
+        if (!this._cachedSize ||
+            (this._cachedSize[0] !== size[0]) ||
+            (this._cachedSize[1] !== size[1]) ||
+            (this._cachedCanvasSize[0] !== canvasSize[0]) ||
+            (this._cachedCanvasSize[1] !== canvasSize[1])) {
+            this._cachedSize = size;
+            this._cachedCanvasSize = canvasSize;
+            this.canvas.setSize(size, canvasSize);
+        }
 
         // Clear background
         context.clearRect(0, 0, canvasSize[0], canvasSize[1]);
