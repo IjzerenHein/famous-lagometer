@@ -1,6 +1,6 @@
 {
   "name": "famous-lagometer",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "homepage": "https://github.com/IjzerenHein/famous-lagometer",
   "repository": {
     "type": "git",
@@ -26,9 +26,5 @@
     "examples",
     "docs",
     "Gruntfile.js"
-  ],
-  "dependencies": {
-    "requirejs": "~2.1.11",
-    "famous": "~0.2.0"
-  }
+  ]
 }
