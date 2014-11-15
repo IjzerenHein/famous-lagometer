@@ -58,14 +58,15 @@ define(function(require, exports, module) {
             properties: {
                 'pointer-events': 'none'
             }
-        }
+        },
+        drawFrequence: 1 // 1: as fast as possible, 1000 = once per second
     };
 
     /**
      * @method _onEngineRender
      */
     Lagometer.prototype._onEngineRender = function(pre) {
-        var currentTime = Date.now();
+        var currentTime = window.performance.now ? window.performance.now() : Date.now();
         if (pre) {
 
             // Determine the time that was spent between two 'animation-frames'
@@ -117,12 +118,11 @@ define(function(require, exports, module) {
      * @method _drawSamples
      */
     Lagometer.prototype._drawSamples = function(draw) {
-
         draw.context.beginPath();
         var i;
         var bufferIndex = draw.index;
         var size = draw.size;
-        var yScale =  size[1] / (draw.max - draw.min);
+        var yScale = size[1] / (draw.max - draw.min);
         for (i = 0; i < draw.buffer.length; i++) {
             var x = size[0] - i;
             var sample = draw.buffer[bufferIndex][draw.property];
@@ -136,7 +136,7 @@ define(function(require, exports, module) {
             bufferIndex--;
             if (bufferIndex < 0) {
                 bufferIndex = draw.buffer.length - 1;
-                }
+            }
         }
         draw.context.lineWidth = 1;
         draw.context.strokeStyle = draw.color;
@@ -144,14 +144,13 @@ define(function(require, exports, module) {
     };
 
     /**
-     * @method _getFPS
+     * Calculates the FPS, averaged over the last x samples of data
      */
-    Lagometer.prototype._getFPS = function(count) {
+    Lagometer.prototype.getFPS = function(count) {
         count = Math.min(count, this.samples.length);
         var bufferIndex = this.sampleIndex;
-        var i;
         var fps = 0;
-        for (i = 0; i < count; i++) {
+        for (var i = 0, j = count; i < j; i++) {
             var sample = this.samples[bufferIndex];
             fps += sample.frameTime;
             bufferIndex--;
@@ -163,13 +162,37 @@ define(function(require, exports, module) {
     };
 
     /**
+     * Calculates the script time, averages over the x last samples of data
+     */
+    Lagometer.prototype.getScriptTime = function(count) {
+        count = Math.min(count, this.samples.length);
+        var bufferIndex = this.sampleIndex;
+        var total = 0;
+        for (var i = 0, j = count; i < j; i++) {
+            var sample = this.samples[bufferIndex];
+            total += sample.scriptTime;
+            bufferIndex--;
+            if (bufferIndex < 0) {
+                bufferIndex = this.samples.length - 1;
+            }
+        }
+        return total / count;
+    };
+
+    /**
      * Renders the view.
-     *
-     * @method render
-     * @private
-     * @ignore
      */
     Lagometer.prototype.render = function render() {
+
+        // Check whether to render or not this cycle
+        var timestamp = Date.now();
+        if (this._renderTimestamp &&
+            ((timestamp - this._renderTimestamp) < this.options.drawFrequence)) {
+            return this._node.render();
+        }
+        this._renderTimestamp = timestamp;
+
+        // prepare
         var context = this.canvas.getContext('2d');
         var size = this.getSize();
         var canvasSize = [size[0] * 2, size[1] * 2];
@@ -196,27 +219,19 @@ define(function(require, exports, module) {
         // Calculate min/max
         var min = this.options.min;
         var max = this.options.max;
-        //var min = Math.min(this.minFrameTime, this.minScriptTime);
-        //var max = Math.max(this.maxFrameTime, this.maxScriptTime);
-        /*var range = max - min;
-        var i;
-        if (this.samples.length) {
-            min = this.samples[0].frameTime;
-            max = this.samples[0].frameTime;
-            for (i = 0; i < this.samples.length; i++) {
-                min = Math.min(min, this.samples[i].frameTime);
-                max = Math.max(max, this.samples[i].frameTime);
-            }
-            min = 0;
-        }*/
 
         // Prepare text drawing
         context.fillStyle = this.options.textColor;
         context.font = this.options.font;
+        context.textAlign = 'end';
 
         // Draw fps (calculated over last 20 frames)
-        var fps = Math.round(this._getFPS(20));
-        context.fillText(fps + ' fps', canvasSize[0] - 84, 26);
+        var fps = Math.round(this.getFPS(20));
+        context.fillText(fps + ' fps', canvasSize[0] - 10, 30);
+
+        // Draw script-time (calculated over last 20 frames)
+        var scriptTime = Math.round(this.getScriptTime(20));
+        context.fillText(scriptTime + ' ms', canvasSize[0] - 10, canvasSize[1] - 20);
 
         // Draw frame-times
         this._drawSamples({
