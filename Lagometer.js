@@ -66,7 +66,7 @@ define(function(require, exports, module) {
      * @method _onEngineRender
      */
     Lagometer.prototype._onEngineRender = function(pre) {
-        var currentTime = window.performance.now ? window.performance.now() : Date.now();
+        var currentTime = window.performance ? window.performance.now() : Date.now();
         if (pre) {
 
             // Determine the time that was spent between two 'animation-frames'
