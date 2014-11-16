@@ -59,7 +59,7 @@ define(function(require, exports, module) {
                 'pointer-events': 'none'
             }
         },
-        drawFrequence: 1 // 1: as fast as possible, 1000 = once per second
+        drawFrequence: 2 // 2 = twice per second, 1000 = as fast as possible
     };
 
     /**
@@ -68,6 +68,15 @@ define(function(require, exports, module) {
     Lagometer.prototype._onEngineRender = function(pre) {
         var currentTime = window.performance ? window.performance.now() : Date.now();
         if (pre) {
+
+            // Count number of frames
+            if (!this.firstFrameTime) {
+                this.frameCount = 0;
+                this.firstFrameTime = currentTime;
+            }
+            else {
+                this.frameCount++;
+            }
 
             // Determine the time that was spent between two 'animation-frames'
             if (this.lastTime !== undefined) {
@@ -180,6 +189,17 @@ define(function(require, exports, module) {
     };
 
     /**
+     * Get the total number of dropped frames.
+     */
+    Lagometer.prototype.getDroppedFrameCount = function() {
+        if (this.frameCount <= 1) {
+            return 0;
+        }
+        var expectedFrameCount = (this.lastTime - this.firstFrameTime) / (1000.0 / 60.0);
+        return Math.floor(expectedFrameCount - this.frameCount);
+    };
+
+    /**
      * Renders the view.
      */
     Lagometer.prototype.render = function render() {
@@ -187,7 +207,7 @@ define(function(require, exports, module) {
         // Check whether to render or not this cycle
         var timestamp = Date.now();
         if (this._renderTimestamp &&
-            ((timestamp - this._renderTimestamp) < this.options.drawFrequence)) {
+            ((timestamp - this._renderTimestamp) < (1000 / this.options.drawFrequence))) {
             return this._node.render();
         }
         this._renderTimestamp = timestamp;
@@ -232,6 +252,10 @@ define(function(require, exports, module) {
         // Draw script-time (calculated over last 20 frames)
         var scriptTime = Math.round(this.getScriptTime(20));
         context.fillText(scriptTime + ' ms', canvasSize[0] - 10, canvasSize[1] - 20);
+
+        // Draw missed-frames count
+        var missedFrames = this.getDroppedFrameCount();
+        context.fillText(missedFrames + ' df', canvasSize[0] - 10, 60);
 
         // Draw frame-times
         this._drawSamples({

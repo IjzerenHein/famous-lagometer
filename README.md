@@ -16,22 +16,10 @@ Install using bower or npm:
 
     npm install famous-lagometer
 
-If necessary, add to the requirejs paths config:
-
-```javascript
-require.config({
-    paths: {
-        ...
-        'famous-lagometer': 'node_modules/famous-lagometer/Lagometer',
-        ...
-    }
-});
-```
-
 Create lagometer:
 
 ```javascript
-var Lagometer = require('famous-lagometer');
+var Lagometer = require('famous-lagometer/Lagometer');
 
 var modifier = new Modifier({
     size: [100, 100],
@@ -40,7 +28,7 @@ var modifier = new Modifier({
     transform: Transform.translate(-10, 10, 0)
 });
 var lagometer = new Lagometer({
-    size: modifier.getSize()
+    size: modifier.getSize() // required
 });
 this.add(modifier).add(lagometer);
 ```
@@ -51,9 +39,10 @@ Options that you can configure through the constructor:
 
 ```javascript
 {
-    size: [100, 100],
-    min: 0,
-    max: 34,
+    size: [100, 100],   // size, required!
+    drawFrequency: 2,   // by default 2 times per second
+    min: 0,             // minimum scale
+    max: 34,            // max scale
     backgroundColor: 'rgba(200, 0, 0, 0.8)',
     borderColor: 'rgba(255, 0, 0, 0.8)',
     textColor: 'rgba(255, 255, 255, 0.8)',
@@ -65,7 +54,7 @@ Options that you can configure through the constructor:
 
 ## Contribute
 
-Feel free to contribute to this project in any way. The easiest way to support this project is by giving it a star.
+If you like this project and want to support it, show some love and give it a star.
 
 ## Contact
 - 	@IjzerenHein
