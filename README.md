@@ -59,6 +59,6 @@ If you like this project and want to support it, show some love and give it a st
 ## Contact
 - 	@IjzerenHein
 - 	http://www.gloey.nl
-- 	hrutjes@gmail.com
+- 	hrutjes@gmail.com (for hire)
 
-© 2014 - Hein Rutjes
+© 2014/2015 - Hein Rutjes

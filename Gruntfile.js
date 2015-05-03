@@ -5,13 +5,13 @@ module.exports = function(grunt) {
   grunt.initConfig({
     // Task configuration.
     eslint: {
-      target: ['*.js'],
+      target: ['Lagometer.js'],
       options: {
         config: '.eslintrc'
       }
     },
     jscs: {
-      src: ['*.js'],
+      src: ['Lagometer.js'],
       options: {
         config: '.jscsrc'
       }

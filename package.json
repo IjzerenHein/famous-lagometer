@@ -1,6 +1,6 @@
 {
   "name": "famous-lagometer",
-  "version": "0.0.7",
+  "version": "0.3.0",
   "main": "./Lagometer.js",
   "homepage": "https://github.com/IjzerenHein/famous-lagometer",
   "repository": {
@@ -39,5 +39,10 @@
   "files": [
     "Lagometer.js",
     "LICENSE"
-  ]
+  ],
+  "browserify": {
+    "transform": [
+      "deamdify"
+    ]
+  }
 }

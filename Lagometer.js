@@ -5,11 +5,8 @@
  *
  * @author: Hein Rutjes (IjzerenHein)
  * @license MIT
- * @copyright Gloey Apps, 2014
+ * @copyright Gloey Apps, 2014/2015
  */
-
-/*jslint browser:true, nomen:true, vars:true, plusplus:true*/
-/*global define*/
 
 define(function(require, exports, module) {
     'use strict';
@@ -92,7 +89,8 @@ define(function(require, exports, module) {
             }
             this.lastTime = currentTime;
 
-        } else if (this.frameTime !== undefined) {
+        }
+        else if (this.frameTime !== undefined) {
 
             // Determine the time that was spent in the script
             this.scriptTime = currentTime - this.lastTime;
